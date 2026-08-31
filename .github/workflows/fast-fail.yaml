@@ -1,0 +1,17 @@
+name: PR Fast Fail Job for 'red' Branches
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  run-if-branch-has-red:
+    if: contains(github.head_ref, 'red')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail on purpose
+        run: |
+          echo "❌ Failing the job for branch '${{ github.head_ref }}'"
+          exit 1

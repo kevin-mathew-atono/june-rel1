@@ -1,0 +1,15 @@
+name: PR Fast Pass Job for 'green' Branches
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  run-if-branch-has-green:
+    if: contains(github.head_ref, 'green')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Done
+        run: echo "✅ Passed for branch '${{ github.head_ref }}'"
